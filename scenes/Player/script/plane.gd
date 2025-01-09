@@ -26,8 +26,8 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("secret"):
 		animated_sprite.play("fly_paula")
-		scale.x = 0.75
-		scale.y = 0.75
+		scale.x = 0.09
+		scale.y = 0.09
 	
 	velocity.y += GRAVITY * delta
 	fly()
