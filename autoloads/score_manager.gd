@@ -23,7 +23,7 @@ func set_score(v: int) -> void:
 	SignalManager.on_score_updated.emit()
 
 func increment_score() -> void:
-	set_score(_score + 2)
+	set_score(_score + 1)
 
 func load_high_score() -> void:
 	var file: FileAccess = FileAccess.open(SCORES_PATH, FileAccess.READ)
