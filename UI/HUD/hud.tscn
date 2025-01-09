@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://bin702pewyk7s"]
+
+[ext_resource type="Script" path="res://UI/HUD/hud.gd" id="1_jvecr"]
+[ext_resource type="FontFile" uid="uid://jl0jh7sfr5cs" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="1_s7bg7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_64eoi"]
+font = ExtResource("1_s7bg7")
+font_size = 52
+font_color = Color(0.815686, 0.121569, 0.188235, 1)
+outline_size = 4
+outline_color = Color(0, 0.775011, 0.775621, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0.270588, 1)
+
+[sub_resource type="Texture2DRD" id="Texture2DRD_pds4v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_55y3n"]
+
+[node name="HUD" type="Control"]
+z_index = 5
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jvecr")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "0"
+label_settings = SubResource("LabelSettings_64eoi")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(231, 429)
+scale = Vector2(-26.7178, 41.9664)
+texture_normal = SubResource("Texture2DRD_pds4v")
+shape = SubResource("RectangleShape2D_55y3n")
+action = "jump"
+
+[connection signal="pressed" from="TouchScreenButton" to="." method="_on_touch_screen_button_pressed"]

@@ -1,0 +1,147 @@
+[gd_scene load_steps=15 format=3 uid="uid://dkgt2gdtsdv44"]
+
+[ext_resource type="Texture2D" uid="uid://dvlpfnj1wj208" path="res://assets/plane/planes_sheet.png" id="1_0geht"]
+[ext_resource type="Script" path="res://scenes/Player/script/plane.gd" id="1_0x2lf"]
+[ext_resource type="Texture2D" uid="uid://b8pwvg4dh6wlf" path="res://assets/plane/paula.jpg" id="2_41b3y"]
+[ext_resource type="AudioStream" uid="uid://de11mjmlwplxy" path="res://assets/audio/engine.mp3" id="3_ck31e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ej77c"]
+atlas = ExtResource("1_0geht")
+region = Rect2(0, 0, 88, 73)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuts3"]
+atlas = ExtResource("1_0geht")
+region = Rect2(88, 0, 88, 73)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6e5c"]
+atlas = ExtResource("1_0geht")
+region = Rect2(176, 0, 88, 73)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xggjk"]
+atlas = ExtResource("2_41b3y")
+region = Rect2(0, 0, 1200, 1600)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_buoy5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ej77c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuts3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6e5c")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 18.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xggjk")
+}],
+"loop": true,
+"name": &"fly_paula",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_norgq"]
+radius = 27.0185
+
+[sub_resource type="Animation" id="Animation_dfwiy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t86th"]
+resource_name = "ability"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.180392), Color(1, 1, 1, 0.968627)]
+}
+
+[sub_resource type="Animation" id="Animation_d3euk"]
+resource_name = "power"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.349066, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gsqqt"]
+_data = {
+"RESET": SubResource("Animation_dfwiy"),
+"ability": SubResource("Animation_t86th"),
+"power": SubResource("Animation_d3euk")
+}
+
+[node name="Plane" type="CharacterBody2D" groups=["Plane"]]
+z_index = 4
+position = Vector2(0, 1)
+scale = Vector2(0.055, 0.055)
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("1_0x2lf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(10.73, -8.86125)
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_buoy5")
+animation = &"fly"
+autoplay = "fly"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(13, 0)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_norgq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gsqqt")
+}
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ck31e")
+volume_db = -35.285
+autoplay = true
