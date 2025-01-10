@@ -6,6 +6,7 @@ const SIMPLE_TRANSITION: PackedScene = preload("res://UI/Transitions/simple_tran
 const COMPLEX_TRANSITION: PackedScene = preload("res://UI/Transitions/complex_transition.tscn")
 const SCROLL_SPEED: float = 120.0
 const GROUP_PLANE: String = "Plane"
+const INITIAL_SCREEN: PackedScene =  preload("res://UI/Main/main.tscn")
 
 
 var next_scene : PackedScene
